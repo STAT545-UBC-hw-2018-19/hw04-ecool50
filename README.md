@@ -7,3 +7,6 @@ Finally, I will be investigating the match function provided by base R and seein
 * [The Rmarkdown File](https://github.com/STAT545-UBC-students/hw04-ecool50/blob/master/HW_04.Rmd)
 * [The Markdown File](https://github.com/STAT545-UBC-students/hw04-ecool50/blob/master/HW_04.md)
 * [The PDF File](https://github.com/STAT545-UBC-students/hw04-ecool50/blob/master/HW_04.pdf)
+
+## Caveats
+Some of the datasets and methods in the above links were taken from online or previous analyses I have done just to illustrate the main ideas.  I take no credit for parts that are not originally mine but rather inspired by others. 
