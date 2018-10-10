@@ -2,7 +2,7 @@
 title: "STAT 545 HW 04"
 author: "Elijah Willie"
 date: "October 8, 2018"
-output: github_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -21,13 +21,12 @@ I will be making a cheatsheet about tidying, splitting and applying functions to
 ```{r}
 library(tidyverse) # loads dplyr, ggplot2, tidyr, etc
 library(dplyr)
-setwd("/home/elijah/Documents/UBC_Courses/STAT_545/hw04-ecool50")
 ```
 
 ### load in the required datasets
 ```{r}
 #load in the billboard dataset
-bb <- read.csv("billboard.csv",stringsAsFactors = FALSE)
+bill_board.data <- read.csv("billboard.csv",stringsAsFactors = FALSE)
 
 #load in the sfu statistics dataset
 load("scilong.RData")
@@ -36,7 +35,7 @@ load("scilong.RData")
 
 ### Get a feel for the datasets
 ```{r}
-knitr::kable(head(bb))
+knitr::kable(head(bill_board.data))
 knitr::kable(head(scilong))
 ```
 
@@ -66,11 +65,11 @@ time series.
     `newname = oldname`
 
 ```{r}
-bb <- 
-  bb %>% select(-time,-genre) %>% 
+bill_board.data <- 
+  bill_board.data %>% select(-time,-genre) %>% 
   rename(artist = artist.inverted) 
 
-knitr::kable(head(bb))
+knitr::kable(head(bill_board.data))
 ```
 
 Now that looks somewhat better.
@@ -79,8 +78,8 @@ Now that looks somewhat better.
 
 ```{r}
 # gather (data, key, value, ... ) where ... are the columns to collapse
-bblong <- gather(bb,week,rank,x1st.week:x76th.week,na.rm=TRUE)
-knitr::kable(head(bblong))
+bill_board.datalong <- gather(bill_board.data,week,rank,x1st.week:x76th.week,na.rm=TRUE)
+knitr::kable(head(bill_board.datalong))
 ```
 
 Now that is looking much better.
@@ -94,12 +93,12 @@ Now that is looking much better.
 - Sort the resulting dataset on artist, track and week using the `arrange()` function.
 
 ```{r}
-bb <- 
-  bblong %>% mutate(week = parse_number(week), #parse the week column
+bill_board.data <- 
+  bill_board.datalong %>% mutate(week = parse_number(week), #parse the week column
               date = as.Date(date.entered) + 7*(week-1)) %>% #compute the date object
   select(-date.entered) %>% # don't need date.entered anymore
   arrange(artist,track,week) #sort the resulting dataset
-knitr::kable(head(bb))
+knitr::kable(head(bill_board.data))
 ```
 
 Now that just looks perfect. We started with a super messy dataset, and now we have tidied it up to something that looks a lot cleaner and less cluttered while retaining all of the relevant informations. 
